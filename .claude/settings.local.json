@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\frontend\\\\src\\\\app\" -Recurse -File | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\frontend\\\\src\\\\entities\" -Recurse -File | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\frontend\\\\src\\\\features\" -Recurse -File | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\frontend\\\\src\\\\pages\" -Recurse -File | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\frontend\\\\src\\\\shared\" -Recurse -File | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\frontend\\\\src\\\\widgets\" -Recurse -File | ForEach-Object { $_.FullName })",
+      "Bash(findstr /i \"tailwind\")"
+    ]
+  }
+}

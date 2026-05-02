@@ -1,0 +1,1 @@
+export { IndicatorSummary } from './ui/IndicatorSummary'
