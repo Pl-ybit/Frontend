@@ -21,7 +21,7 @@ const CHANGE_COLOR: Record<CoinRow['variant'], string> = {
 
 export function MarketScanner({ rows, search, onSearchChange }: MarketScannerProps) {
   const filtered = rows.filter((r) =>
-    r.symbol.toLowerCase().includes(search.toLowerCase())
+    r.symbol.split('/')[0].toLowerCase().includes(search.toLowerCase())
   )
 
   return (

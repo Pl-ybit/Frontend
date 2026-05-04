@@ -7,7 +7,11 @@
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\frontend\\\\src\\\\pages\" -Recurse -File | ForEach-Object { $_.FullName })",
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\frontend\\\\src\\\\shared\" -Recurse -File | ForEach-Object { $_.FullName })",
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\frontend\\\\src\\\\widgets\" -Recurse -File | ForEach-Object { $_.FullName })",
-      "Bash(findstr /i \"tailwind\")"
+      "Bash(findstr /i \"tailwind\")",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\user\\\\Frontend\" -Recurse -Depth 2)",
+      "Bash(Select-Object FullName)",
+      "PowerShell(head -100)",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\user\\\\Frontend\\\\src\" -Recurse | Where-Object {$_.PSIsContainer -eq $false} | Select-Object -ExpandProperty FullName)"
     ]
   }
 }

@@ -1,9 +1,4 @@
-interface TradeRow {
-  time: string
-  price: string
-  amount: string
-  side: 'buy' | 'sell' | 'neutral'
-}
+import type { TradeRow } from '../../../entities/trade'
 
 interface TradeHistoryProps {
   rows: TradeRow[]

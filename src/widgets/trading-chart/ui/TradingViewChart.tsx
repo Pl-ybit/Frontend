@@ -34,6 +34,10 @@ export function TradingViewChart({ symbol = 'UPBIT:BTCKRW', theme = 'dark' }: Tr
       save_image: false,
       withdateranges: true,
       hide_side_toolbar: false,
+      ...(theme === 'light' && {
+        backgroundColor: '#fefae0',
+        gridLineColor: '#e0d9b8',
+      }),
     })
 
     el.appendChild(widget)
