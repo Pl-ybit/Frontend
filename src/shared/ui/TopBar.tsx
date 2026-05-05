@@ -8,13 +8,12 @@ export type TopBarProps = {
   siteName: string
   theme: ThemeMode
   onThemeChange: (next: ThemeMode) => void
-  /**
-   * 로그인 상태가 없으면 "회원가입 / 로그인" 버튼을 보여줍니다.
-   */
   isLoggedIn?: boolean
   onLoginClick?: () => void
   onSignupClick?: () => void
   onLogoutClick?: () => void
+  showBack?: boolean
+  onBackClick?: () => void
 }
 
 function formatKstTime(d: Date) {
@@ -35,6 +34,8 @@ export function TopBar({
   onLoginClick,
   onSignupClick,
   onLogoutClick,
+  showBack = false,
+  onBackClick,
 }: TopBarProps) {
   const [now, setNow] = useState(() => new Date())
 
@@ -64,7 +65,15 @@ export function TopBar({
 
         {/* Right: auth + theme */}
         <div className="flex items-center gap-2 shrink-0">
-          {!isLoggedIn ? (
+          {showBack ? (
+            <button
+              type="button"
+              onClick={onBackClick}
+              className="text-sm text-(--text-muted) hover:text-(--page-text) transition-colors"
+            >
+              ← 거래소로 돌아가기
+            </button>
+          ) : !isLoggedIn ? (
             <>
               <Button size="sm" variant={secondaryVariant} className="!rounded-[10px] font-pretendard" onClick={onSignupClick}>
                 회원가입

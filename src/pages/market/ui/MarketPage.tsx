@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { TopBar } from '../../../shared/ui'
 import { useTheme } from '../../../app/providers'
@@ -12,6 +13,7 @@ import { ORDER_BOOK } from '../../../entities/orderbook'
 import { TRADE_ROWS } from '../../../entities/trade'
 
 export function MarketPage() {
+  const navigate = useNavigate()
   const { theme, setTheme } = useTheme()
   const [search, setSearch] = useState('')
   const [isLoading, setIsLoading] = useState(true)
@@ -30,8 +32,8 @@ export function MarketPage() {
         theme={theme}
         onThemeChange={setTheme}
         isLoggedIn={false}
-        onSignupClick={() => {}}
-        onLoginClick={() => {}}
+        onSignupClick={() => navigate('/signup')}
+        onLoginClick={() => navigate('/login')}
       />
 
       <div className="flex flex-1 min-h-0">
