@@ -17,7 +17,7 @@ const variantClass: Record<ButtonVariant, string> = {
   secondary:
     'bg-[color:var(--btn-secondary-bg)] text-[color:var(--btn-secondary-text)] border border-[color:var(--btn-secondary-border)] hover:bg-[color:var(--btn-secondary-hover-bg)]',
   success:
-    'bg-emerald-500/15 text-emerald-200 border border-emerald-500/30 hover:bg-emerald-500/20 focus-visible:ring-emerald-300',
+    'bg-blue-500/15 text-blue-200 border border-blue-500/30 hover:bg-blue-500/20 focus-visible:ring-blue-300',
   destructive:
     'bg-rose-500/15 text-rose-200 border border-rose-500/30 hover:bg-rose-500/20 focus-visible:ring-rose-300',
   // 헤더 아이콘 버튼에 사용할 ghost 스타일 추가

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { TopBar } from '../../../shared/ui'
+import { TopBar } from '../../../shared/ui/TopBar'
 import { useTheme } from '../../../app/providers'
 import { MarketScanner } from '../../../widgets/market-scanner'
 import { TradingChart } from '../../../widgets/trading-chart'
@@ -11,6 +11,7 @@ import { IndicatorSummary } from '../../../widgets/indicator-summary'
 import { COIN_ROWS } from '../../../entities/coin'
 import { ORDER_BOOK } from '../../../entities/orderbook'
 import { TRADE_ROWS } from '../../../entities/trade'
+
 
 export function MarketPage() {
   const navigate = useNavigate()
@@ -31,6 +32,15 @@ export function MarketPage() {
         siteName="Play-Bit"
         theme={theme}
         onThemeChange={setTheme}
+        navItems={[
+          { label: '홈', key: 'home' },
+          { label: '시세', key: 'market' },
+          { label: '거래소', key: 'exchange' },
+        ]}
+        activeNav="exchange"
+        onNavClick={(key: string) => {
+          if (key === 'home') navigate('/')
+        }}
         isLoggedIn={false}
         onSignupClick={() => navigate('/signup')}
         onLoginClick={() => navigate('/login')}

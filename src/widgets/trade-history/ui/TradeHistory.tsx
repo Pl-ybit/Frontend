@@ -11,7 +11,7 @@ export function TradeHistory({ rows }: TradeHistoryProps) {
       <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-white/8">
         <div className="text-sm font-semibold text-(--page-text)">Trade History</div>
         <div className="flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
           <span className="text-xs text-(--text-muted)">Updated in real-time</span>
         </div>
       </div>
@@ -31,7 +31,7 @@ export function TradeHistory({ rows }: TradeHistoryProps) {
             <span
               className={[
                 'text-center tabular-nums font-medium',
-                r.side === 'buy' ? 'text-emerald-400' : r.side === 'sell' ? 'text-rose-400' : 'text-(--text-muted)',
+                r.side === 'buy' ? 'text-blue-400' : r.side === 'sell' ? 'text-rose-400' : 'text-(--text-muted)',
               ].join(' ')}
             >
               {r.price}

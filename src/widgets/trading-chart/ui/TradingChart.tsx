@@ -18,7 +18,11 @@ export function TradingChart({ theme = 'dark' }: TradingChartProps) {
   function toggleIndicator(ind: Indicator) {
     setActiveIndicators((prev) => {
       const next = new Set(prev)
-      next.has(ind) ? next.delete(ind) : next.add(ind)
+      if (next.has(ind)) {
+        next.delete(ind)
+      } else {
+        next.add(ind)
+      }
       return next
     })
   }

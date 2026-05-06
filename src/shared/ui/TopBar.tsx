@@ -4,10 +4,18 @@ import { Button } from './Button'
 
 export type ThemeMode = 'dark' | 'light'
 
+export type NavItem = {
+  label: string
+  key: string
+}
+
 export type TopBarProps = {
   siteName: string
   theme: ThemeMode
   onThemeChange: (next: ThemeMode) => void
+  navItems?: NavItem[]
+  activeNav?: string
+  onNavClick?: (key: string) => void
   isLoggedIn?: boolean
   onLoginClick?: () => void
   onSignupClick?: () => void
@@ -30,6 +38,9 @@ export function TopBar({
   siteName,
   theme,
   onThemeChange,
+  navItems,
+  activeNav,
+  onNavClick,
   isLoggedIn = false,
   onLoginClick,
   onSignupClick,
@@ -52,19 +63,41 @@ export function TopBar({
 
   return (
     <header className="sticky top-0 z-50 border-b border-(--border-weak) bg-(--topbar-bg) backdrop-blur">
-      <div className="flex h-[68px] w-full items-center justify-between gap-6 px-4">
-        {/* Left: logo + clock */}
-        <div className="flex items-center gap-10 min-w-0">
+      <div className="flex h-[68px] w-full items-center justify-between gap-6 px-5">
+
+        {/* Left: logo + nav */}
+        <div className="flex items-center gap-8 min-w-0">
           <span className="font-space-grotesk text-3xl font-bold tracking-tight text-(--topbar-title) select-none">
             {siteName}
           </span>
-          <span className="font-space-grotesk text-base font-medium tabular-nums text-(--text-muted)">
-            {formatKstTime(now)}
-          </span>
+
+          {navItems && navItems.length > 0 && (
+            <nav className="flex items-center gap-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={() => onNavClick?.(item.key)}
+                  className={[
+                    'px-3 py-1.5 rounded-lg text-sm font-medium transition-colors font-pretendard',
+                    activeNav === item.key
+                      ? 'bg-white/12 text-(--page-text)'
+                      : 'text-(--text-muted) hover:text-(--page-text) hover:bg-white/6',
+                  ].join(' ')}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          )}
         </div>
 
-        {/* Right: auth + theme */}
-        <div className="flex items-center gap-2 shrink-0">
+        {/* Right: clock + auth + theme */}
+        <div className="flex items-center gap-3 shrink-0">
+          <span className="font-space-grotesk text-sm font-medium tabular-nums text-(--text-muted) mr-1">
+            {formatKstTime(now)}
+          </span>
+
           {showBack ? (
             <button
               type="button"
@@ -75,15 +108,15 @@ export function TopBar({
             </button>
           ) : !isLoggedIn ? (
             <>
-              <Button size="sm" variant={secondaryVariant} className="!rounded-[10px] font-pretendard" onClick={onSignupClick}>
+              <Button size="sm" variant={secondaryVariant} className="!rounded-[30px] font-pretendard" onClick={onSignupClick}>
                 회원가입
               </Button>
-              <Button size="sm" variant={secondaryVariant} className="!rounded-[10px] font-pretendard" onClick={onLoginClick}>
+              <Button size="sm" variant={secondaryVariant} className="!rounded-[30px] font-pretendard" onClick={onLoginClick}>
                 로그인
               </Button>
             </>
           ) : (
-            <Button size="sm" variant={secondaryVariant} className="!rounded-[10px] font-pretendard" onClick={onLogoutClick}>
+            <Button size="sm" variant={secondaryVariant} className="!rounded-[30px] font-pretendard" onClick={onLogoutClick}>
               로그아웃
             </Button>
           )}
@@ -106,8 +139,8 @@ export function TopBar({
             )}
           </button>
         </div>
+
       </div>
     </header>
   )
 }
-

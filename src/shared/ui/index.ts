@@ -22,5 +22,5 @@ export { Skeleton } from './Skeleton'
 export type { SkeletonProps } from './Skeleton'
 
 export { TopBar } from './TopBar'
-export type { TopBarProps, ThemeMode } from './TopBar'
+export type { TopBarProps, ThemeMode, NavItem } from './TopBar'
 

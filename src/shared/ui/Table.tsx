@@ -16,7 +16,7 @@ export function Badge({
 }: BadgeProps) {
   const cls =
     variant === 'up'
-      ? 'border-emerald-500/30 bg-emerald-500/15 text-emerald-200'
+      ? 'border-blue-500/30 bg-blue-500/15 text-blue-200'
       : variant === 'down'
         ? 'border-rose-500/30 bg-rose-500/15 text-rose-200'
         : 'border-[color:var(--badge-neutral-border)] bg-[color:var(--badge-neutral-bg)] text-[color:var(--badge-neutral-text)]'
