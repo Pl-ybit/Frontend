@@ -13,7 +13,12 @@
       "PowerShell(head -100)",
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\user\\\\Frontend\\\\src\" -Recurse | Where-Object {$_.PSIsContainer -eq $false} | Select-Object -ExpandProperty FullName)",
       "Bash(Remove-Item -Force \"c:\\\\Users\\\\USER\\\\frontend\\\\node_modules\\\\.tmp\\\\tsconfig.app.tsbuildinfo\" -ErrorAction SilentlyContinue)",
-      "Bash(Write-Output \"done\")"
+      "Bash(Write-Output \"done\")",
+      "Bash(mkdir -p \"c:\\\\Users\\\\user\\\\Frontend\\\\src\\\\pages\\\\home\\\\ui\")",
+      "Bash(npm run *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\user\\Frontend\\src\\pages\\home"
     ]
   }
 }
