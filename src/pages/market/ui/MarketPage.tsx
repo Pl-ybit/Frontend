@@ -8,6 +8,7 @@ import { TradingChart } from '../../../widgets/trading-chart'
 import { OrderBook } from '../../../widgets/order-book'
 import { TradeHistory } from '../../../widgets/trade-history'
 import { IndicatorSummary } from '../../../widgets/indicator-summary'
+import { OrderForm } from '../../../widgets/order-form'
 import { COIN_ROWS } from '../../../entities/coin'
 import { ORDER_BOOK } from '../../../entities/orderbook'
 import { TRADE_ROWS } from '../../../entities/trade'
@@ -64,9 +65,12 @@ export function MarketPage() {
         </div>
 
         {/* Center */}
-        <main className="flex-1 min-w-0 flex flex-col gap-3 p-3 overflow-hidden">
-          <div className="flex-1 min-h-0">
+        <main className="flex-1 min-w-0 flex flex-col gap-3 p-3 overflow-auto">
+          <div className="shrink-0 h-[calc(100vh-68px-3rem)]">
             <TradingChart theme={theme} />
+          </div>
+          <div className="shrink-0">
+            <OrderForm />
           </div>
           <div className="shrink-0 grid grid-cols-[1fr_240px] gap-3 h-[220px]">
             <TradeHistory rows={TRADE_ROWS} />
