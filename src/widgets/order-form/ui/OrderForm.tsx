@@ -213,7 +213,7 @@ export function OrderForm() {
                 isBuy ? 'bg-blue-500 hover:bg-blue-400' : 'bg-rose-500 hover:bg-rose-400',
               ].join(' ')}
             >
-              BTC {isBuy ? '매수' : '매도'}
+              {isBuy ? '매수' : '매도'}
             </button>
           </div>
 

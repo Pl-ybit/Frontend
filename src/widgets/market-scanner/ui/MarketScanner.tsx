@@ -9,9 +9,9 @@ interface MarketScannerProps {
   onSearchChange: (value: string) => void
 }
 
-type Tab = '관심' | 'KRW' | 'BTC' | '보유'
+type Tab = '관심' | 'KRW' | '보유'
 
-const TABS: Tab[] = ['관심', 'KRW', 'BTC', '보유']
+const TABS: Tab[] = ['관심', 'KRW', '보유']
 
 const CHANGE_COLOR: Record<CoinRow['variant'], string> = {
   up: 'text-blue-400',
@@ -38,7 +38,6 @@ export function MarketScanner({ rows, search, onSearchChange }: MarketScannerPro
   const tabFiltered = rows.filter((r) => {
     if (tab === '관심') return favorites.has(r.symbol)
     if (tab === 'KRW') return r.symbol.endsWith('/KRW')
-    if (tab === 'BTC') return r.symbol.endsWith('/BTC')
     return false
   })
 

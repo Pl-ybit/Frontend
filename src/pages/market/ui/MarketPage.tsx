@@ -6,9 +6,8 @@ import { useTheme } from '../../../app/providers'
 import { MarketScanner } from '../../../widgets/market-scanner'
 import { TradingChart } from '../../../widgets/trading-chart'
 import { OrderBook } from '../../../widgets/order-book'
-import { TradeHistory } from '../../../widgets/trade-history'
-import { IndicatorSummary } from '../../../widgets/indicator-summary'
 import { OrderForm } from '../../../widgets/order-form'
+import { MarketPanel } from '../../../widgets/market-panel'
 import { COIN_ROWS } from '../../../entities/coin'
 import { ORDER_BOOK } from '../../../entities/orderbook'
 import { TRADE_ROWS } from '../../../entities/trade'
@@ -35,7 +34,6 @@ export function MarketPage() {
         onThemeChange={setTheme}
         navItems={[
           { label: '홈', key: 'home' },
-          { label: '시세', key: 'market' },
           { label: '거래소', key: 'exchange' },
         ]}
         activeNav="exchange"
@@ -72,9 +70,8 @@ export function MarketPage() {
           <div className="shrink-0">
             <OrderForm />
           </div>
-          <div className="shrink-0 grid grid-cols-[1fr_240px] gap-3 h-[220px]">
-            <TradeHistory rows={TRADE_ROWS} />
-            <IndicatorSummary isLoading={isLoading} />
+          <div className="shrink-0">
+            <MarketPanel tradeRows={TRADE_ROWS} isLoading={isLoading} />
           </div>
         </main>
 

@@ -7,7 +7,6 @@ import type { CoinRow } from '../../../entities/coin'
 
 const NAV_ITEMS = [
   { label: '홈', key: 'home' },
-  { label: '시세', key: 'market' },
   { label: '거래소', key: 'exchange' },
 ]
 
@@ -168,12 +167,6 @@ export function HomePage() {
             >
               거래소 둘러보기 →
             </button>
-            <button
-              onClick={() => marketRef.current?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-6 py-3 rounded-xl border border-(--border-strong) text-(--page-text) font-semibold text-sm hover:bg-white/6 transition-colors"
-            >
-              시세 보기
-            </button>
           </div>
 
           <div className="flex gap-10 border-t border-(--border-weak) pt-8">
@@ -266,29 +259,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ─── CTA ─── */}
-      <section className="px-8 py-20 border-t border-(--border-weak)">
-        <div className="max-w-[560px] mx-auto text-center">
-          <h2 className="text-3xl font-bold text-(--page-text) mb-4">지금 바로 둘러보세요</h2>
-          <p className="text-(--text-muted) mb-10">
-            로그인 없이도 모든 시세와 인터페이스를 체험할 수 있습니다.
-          </p>
-          <div className="flex items-center justify-center gap-3">
-            <button
-              onClick={() => navigate('/exchange')}
-              className="px-6 py-3 rounded-xl border border-(--border-strong) text-(--page-text) font-semibold text-sm hover:bg-white/6 transition-colors"
-            >
-              Level 1 · 시세 뷰어
-            </button>
-            <button
-              onClick={() => navigate('/exchange')}
-              className="px-6 py-3 rounded-xl bg-(--btn-primary-bg) text-(--btn-primary-text) border border-(--btn-primary-border) hover:bg-(--btn-primary-hover-bg) font-semibold text-sm transition-colors"
-            >
-              Level 2 · 거래소 →
-            </button>
-          </div>
-        </div>
-      </section>
+    
 
       {/* ─── Footer ─── */}
       <footer className="border-t border-(--border-weak) py-8 text-center">
