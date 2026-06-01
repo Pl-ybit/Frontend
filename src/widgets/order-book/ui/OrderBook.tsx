@@ -33,12 +33,12 @@ export function OrderBook({ data }: OrderBookProps) {
           {[...data.asks].reverse().map((r, i) => {
             const pct = calcBarPct(r.amount, maxAll)
             return (
-              <div key={`ask-${i}`} className="relative grid grid-cols-3 px-4 py-[5px] text-xs hover:bg-rose-500/5 cursor-pointer">
+              <div key={`ask-${i}`} className="relative grid grid-cols-3 px-4 py-[5px] text-xs hover:bg-(--color-down)/5 cursor-pointer">
                 <div
-                  className="absolute inset-y-0 right-0 bg-rose-500/15"
+                  className="absolute inset-y-0 right-0 bg-(--color-down)/15"
                   style={{ width: `${pct}%` }}
                 />
-                <span className="relative text-rose-400 font-medium tabular-nums">{r.price.toLocaleString()}</span>
+                <span className="relative text-(--color-down) font-medium tabular-nums">{r.price.toLocaleString()}</span>
                 <span className="relative text-center text-(--page-text) tabular-nums">{r.amount.toLocaleString()}</span>
                 <span className="relative text-right text-(--text-muted) tabular-nums">{r.total.toLocaleString()}</span>
               </div>
@@ -51,10 +51,10 @@ export function OrderBook({ data }: OrderBookProps) {
       <div className="shrink-0 px-4 py-2.5 border-y border-white/8 bg-white/4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <span className="text-base font-bold text-blue-400 tabular-nums">
+            <span className="text-base font-bold text-(--color-up) tabular-nums">
               {data.marketPrice.toLocaleString()}
             </span>
-            <span className="text-blue-400 text-sm">↑</span>
+            <span className="text-(--color-up) text-sm">↑</span>
             <span className="text-[10px] text-(--text-muted) ml-1">Market Price</span>
           </div>
         </div>
@@ -68,12 +68,12 @@ export function OrderBook({ data }: OrderBookProps) {
         {data.bids.map((r, i) => {
           const pct = calcBarPct(r.amount, maxAll)
           return (
-            <div key={`bid-${i}`} className="relative grid grid-cols-3 px-4 py-[5px] text-xs hover:bg-blue-500/5 cursor-pointer">
+            <div key={`bid-${i}`} className="relative grid grid-cols-3 px-4 py-[5px] text-xs hover:bg-(--color-up)/5 cursor-pointer">
               <div
-                className="absolute inset-y-0 right-0 bg-blue-500/15"
+                className="absolute inset-y-0 right-0 bg-(--color-up)/15"
                 style={{ width: `${pct}%` }}
               />
-              <span className="relative text-blue-400 font-medium tabular-nums">{r.price.toLocaleString()}</span>
+              <span className="relative text-(--color-up) font-medium tabular-nums">{r.price.toLocaleString()}</span>
               <span className="relative text-center text-(--page-text) tabular-nums">{r.amount.toLocaleString()}</span>
               <span className="relative text-right text-(--text-muted) tabular-nums">{r.total.toLocaleString()}</span>
             </div>

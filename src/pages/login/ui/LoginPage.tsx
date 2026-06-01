@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { Eye, EyeOff, Lock, User } from 'lucide-react'
 import { TopBar } from '../../../shared/ui'
 import { useTheme } from '../../../app/providers'
+import { useAuth } from '../../../app/providers'
 import { SocialButtons } from './SocialButtons'
 
 const inputBase =
@@ -11,7 +12,20 @@ const inputBase =
 export function LoginPage() {
   const navigate = useNavigate()
   const { theme, setTheme } = useTheme()
+  const { login } = useAuth()
+  const [id, setId] = useState('')
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState(false)
+
+  function handleLogin() {
+    const success = login(id, password)
+    if (success) {
+      navigate('/exchange')
+    } else {
+      setError(true)
+    }
+  }
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: 'var(--page-gradient)' }}>
@@ -32,12 +46,18 @@ export function LoginPage() {
           </div>
 
           <div className="flex flex-col gap-4">
-            {/* Email */}
+            {/* ID */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-medium text-(--text-muted)">이메일</label>
+              <label className="text-xs font-medium text-(--text-muted)">아이디</label>
               <div className="relative">
-                <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-(--text-muted)" />
-                <input type="email" placeholder="you@example.com" className={`${inputBase} pl-10 pr-3`} />
+                <User className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-(--text-muted)" />
+                <input
+                  type="text"
+                  placeholder="아이디 입력"
+                  value={id}
+                  onChange={(e) => { setId(e.target.value); setError(false) }}
+                  className={`${inputBase} pl-10 pr-3`}
+                />
               </div>
             </div>
 
@@ -49,6 +69,9 @@ export function LoginPage() {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   placeholder="비밀번호 입력"
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value); setError(false) }}
+                  onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                   className={`${inputBase} pl-10 pr-10`}
                 />
                 <button
@@ -67,8 +90,15 @@ export function LoginPage() {
               </div>
             </div>
 
+            {error && (
+              <p className="text-xs text-rose-400 text-center -mt-1">
+                아이디 또는 비밀번호가 올바르지 않습니다
+              </p>
+            )}
+
             <button
               type="button"
+              onClick={handleLogin}
               className="w-full rounded-xl bg-(--btn-primary-bg) text-(--btn-primary-text) border border-(--btn-primary-border) hover:bg-(--btn-primary-hover-bg) py-2.5 text-sm font-semibold transition-colors mt-1"
             >
               로그인 →
@@ -87,7 +117,7 @@ export function LoginPage() {
               <button
                 type="button"
                 onClick={() => navigate('/signup')}
-                className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
+                className="text-(--color-up) hover:text-(--color-up)/70 font-medium transition-colors"
               >
                 회원가입
               </button>

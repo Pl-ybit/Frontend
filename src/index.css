@@ -38,14 +38,22 @@
     /* ── 스켈레톤 ── */
     --skeleton-bg: rgba(30, 41, 59, 0.75);
 
+    /* ── 거래 색상 (매수/매도) ── */
+    --color-up: #5a9fd4;
+    --color-up-bg: #2c6ea0;
+    --color-up-bg-hover: #245e8c;
+    --color-down: #c86878;
+    --color-down-bg: #8c3548;
+    --color-down-bg-hover: #7a2c3e;
+
     /* ── 포커스 ── */
-    --focus-outline: #60a5fa;
+    --focus-outline: #5a9fd4;
 
     /* ── 버튼: Primary (Blue) ── */
-    --btn-primary-bg: #3b82f6;
+    --btn-primary-bg: #2c6ea0;
     --btn-primary-text: #ffffff;
-    --btn-primary-border: #2563eb;
-    --btn-primary-hover-bg: #2563eb;
+    --btn-primary-border: #245e8c;
+    --btn-primary-hover-bg: #245e8c;
 
     /* ── 버튼: Secondary ── */
     --btn-secondary-bg: #1e293b;
@@ -92,6 +100,14 @@
 
     /* ── 스켈레톤 ── */
     --skeleton-bg: rgba(180, 164, 108, 0.28);
+
+    /* ── 거래 색상 (라이트 모드) ── */
+    --color-up: #1a6aac;
+    --color-up-bg: #145898;
+    --color-up-bg-hover: #104c84;
+    --color-down: #b03050;
+    --color-down-bg: #962842;
+    --color-down-bg-hover: #7c2038;
 
     /* ── 포커스 ── */
     --focus-outline: #8a7020;

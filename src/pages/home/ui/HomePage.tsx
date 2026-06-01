@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TopBar } from '../../../shared/ui'
-import { useTheme } from '../../../app/providers'
+import { useTheme, useAuth } from '../../../app/providers'
 import { COIN_ROWS } from '../../../entities/coin'
 import type { CoinRow } from '../../../entities/coin'
 
@@ -89,8 +89,8 @@ function HeroCandleChart() {
 function CoinCard({ row }: { row: CoinRow }) {
   const isUp = row.variant === 'up'
   const isDown = row.variant === 'down'
-  const color = isUp ? 'text-blue-400' : isDown ? 'text-rose-400' : 'text-slate-400'
-  const strokeColor = isUp ? '#60a5fa' : isDown ? '#fb7185' : '#94a3b8'
+  const color = isUp ? 'text-(--color-up)' : isDown ? 'text-(--color-down)' : 'text-slate-400'
+  const strokeColor = isUp ? '#5a9fd4' : isDown ? '#c86878' : '#94a3b8'
   const path = SPARKLINES[row.symbol] ?? SPARKLINES['XRP/KRW']
   const ticker = row.symbol.split('/')[0]
   const name = KOREAN_NAMES[row.symbol] ?? ''
@@ -117,6 +117,7 @@ function CoinCard({ row }: { row: CoinRow }) {
 export function HomePage() {
   const navigate = useNavigate()
   const { theme, setTheme } = useTheme()
+  const { isLoggedIn, logout } = useAuth()
   const marketRef = useRef<HTMLElement>(null)
 
   const uniqueCoins = COIN_ROWS.filter(
@@ -137,23 +138,24 @@ export function HomePage() {
         navItems={NAV_ITEMS}
         activeNav="home"
         onNavClick={handleNav}
-        isLoggedIn={false}
+        isLoggedIn={isLoggedIn}
         onSignupClick={() => navigate('/signup')}
         onLoginClick={() => navigate('/login')}
+        onLogoutClick={logout}
       />
 
       {/* ─── Hero ─── */}
       <section className="flex items-center gap-12 px-8 py-12 max-w-[1400px] mx-auto">
         {/* Left */}
         <div className="flex-1 min-w-0">
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs text-blue-400 mb-8">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-(--color-up)/30 bg-(--color-up)/10 px-3 py-1 text-xs text-(--color-up) mb-8">
+            <span className="h-1.5 w-1.5 rounded-full bg-(--color-up) animate-pulse" />
             LIVE · KRW MARKET
           </div>
 
           <h1 className="text-[clamp(2.8rem,4.5vw,4.2rem)] font-extrabold leading-tight tracking-tight text-(--page-text) mb-5">
             깔끔한 차트.<br />
-            <span className="text-blue-400">빠른 거래.</span>
+            <span className="text-(--color-up)">빠른 거래.</span>
           </h1>
 
           <p className="text-(--text-muted) text-base leading-relaxed max-w-[460px] mb-10">
@@ -195,8 +197,8 @@ export function HomePage() {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-xl font-bold text-blue-400 tabular-nums">120,578,000</div>
-                <div className="text-sm text-blue-400 font-medium">+6.12%</div>
+                <div className="text-xl font-bold text-(--color-up) tabular-nums">120,578,000</div>
+                <div className="text-sm text-(--color-up) font-medium">+6.12%</div>
               </div>
             </div>
 
@@ -206,8 +208,8 @@ export function HomePage() {
 
             <div className="grid grid-cols-3 gap-2">
               {[
-                { label: '24h 고가', value: '121,420,000', cls: 'text-blue-400' },
-                { label: '24h 저가', value: '116,200,000', cls: 'text-rose-400' },
+                { label: '24h 고가', value: '121,420,000', cls: 'text-(--color-up)' },
+                { label: '24h 저가', value: '116,200,000', cls: 'text-(--color-down)' },
                 { label: '거래량',   value: '384.2 BTC',   cls: 'text-(--page-text)' },
               ].map(({ label, value, cls }) => (
                 <div key={label} className="rounded-xl bg-black/20 p-3">
@@ -227,7 +229,7 @@ export function HomePage() {
             <h2 className="text-2xl font-bold text-white">실시간 시세</h2>
             <button
               onClick={() => navigate('/exchange')}
-              className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+              className="text-sm text-(--color-up) hover:text-(--color-up)/70 transition-colors"
             >
               전체보기 →
             </button>
@@ -250,7 +252,7 @@ export function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1400px] mx-auto">
             {FEATURES.map(({ num, title, desc }) => (
               <div key={num} className="rounded-2xl border border-(--border-weak) bg-(--card-bg) backdrop-blur p-8">
-                <div className="text-xs font-semibold text-blue-400 mb-4">{num}</div>
+                <div className="text-xs font-semibold text-(--color-up) mb-4">{num}</div>
                 <h3 className="text-lg font-bold text-(--page-text) mb-3">{title}</h3>
                 <p className="text-sm text-(--text-muted) leading-relaxed">{desc}</p>
               </div>

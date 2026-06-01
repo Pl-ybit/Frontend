@@ -21,7 +21,7 @@ interface OrderRecord {
 
 const STATUS_STYLE: Record<OrderStatus, string> = {
   대기: 'text-yellow-400',
-  완료: 'text-blue-400',
+  완료: 'text-(--color-up)',
   취소: 'text-(--text-muted)',
 }
 
@@ -53,9 +53,10 @@ const TABS: Tab[] = ['거래내역', '미체결', '체결내역', '주문내역'
 interface MarketPanelProps {
   tradeRows: TradeRow[]
   isLoading?: boolean
+  isLoggedIn?: boolean
 }
 
-export function MarketPanel({ tradeRows, isLoading = false }: MarketPanelProps) {
+export function MarketPanel({ tradeRows, isLoading = false, isLoggedIn = false }: MarketPanelProps) {
   const [tab, setTab] = useState<Tab>('거래내역')
   const [openOrders, setOpenOrders] = useState(OPEN_ORDERS)
 
@@ -81,30 +82,32 @@ export function MarketPanel({ tradeRows, isLoading = false }: MarketPanelProps) 
             className={[
               'px-3 pb-2.5 text-sm font-medium transition-colors border-b-2 -mb-px whitespace-nowrap',
               tab === t
-                ? 'text-(--page-text) border-blue-400'
+                ? 'text-(--page-text) border-(--color-up)'
                 : 'text-(--text-muted) border-transparent hover:text-(--page-text)',
             ].join(' ')}
           >
             {t}
-            {t === '미체결' && openOrders.length > 0 && (
-              <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 text-[10px] font-semibold">
-                {openOrders.length}
-              </span>
-            )}
           </button>
         ))}
 
         {/* 실시간 표시 (거래내역 탭에만) */}
         {tab === '거래내역' && (
           <div className="flex items-center gap-1.5 ml-auto">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse" />
+            <span className="h-1.5 w-1.5 rounded-full bg-(--color-up) animate-pulse" />
             <span className="text-xs text-(--text-muted)">실시간</span>
           </div>
         )}
       </div>
 
+      {/* ── 비로그인 안내 ── */}
+      {!isLoggedIn && (
+        <div className="h-[220px] flex items-center justify-center">
+          <span className="text-sm text-(--text-muted)">로그인을 완료해주세요!</span>
+        </div>
+      )}
+
       {/* ── 거래내역 ── */}
-      {tab === '거래내역' && (
+      {isLoggedIn && tab === '거래내역' && (
         <div className="overflow-auto h-[220px]">
           <div className="grid grid-cols-3 px-4 py-2 text-[10px] font-medium text-(--text-muted) border-b border-white/6 sticky top-0 bg-(--page-bg,#0f172a) z-10">
             <span>시간</span>
@@ -116,7 +119,7 @@ export function MarketPanel({ tradeRows, isLoading = false }: MarketPanelProps) 
               <span className="text-(--text-muted) tabular-nums">{r.time}</span>
               <span className={[
                 'text-center tabular-nums font-medium',
-                r.side === 'buy' ? 'text-blue-400' : r.side === 'sell' ? 'text-rose-400' : 'text-(--text-muted)',
+                r.side === 'buy' ? 'text-(--color-up)' : r.side === 'sell' ? 'text-(--color-down)' : 'text-(--text-muted)',
               ].join(' ')}>
                 {r.price}
               </span>
@@ -127,7 +130,7 @@ export function MarketPanel({ tradeRows, isLoading = false }: MarketPanelProps) 
       )}
 
       {/* ── 미체결 / 체결내역 / 주문내역 ── */}
-      {(tab === '미체결' || tab === '체결내역' || tab === '주문내역') && (
+      {isLoggedIn && (tab === '미체결' || tab === '체결내역' || tab === '주문내역') && (
         <div className="overflow-auto h-[220px]">
           <table className="w-full text-xs border-separate border-spacing-0">
             <thead className="sticky top-0 z-10 bg-(--page-bg,#0f172a)">
@@ -156,7 +159,7 @@ export function MarketPanel({ tradeRows, isLoading = false }: MarketPanelProps) 
                   <td className="px-4 py-2.5 text-(--text-muted) tabular-nums whitespace-nowrap">{r.time}</td>
                   <td className="px-3 py-2.5 text-(--page-text) font-medium whitespace-nowrap">{r.coin}</td>
                   <td className="px-3 py-2.5 whitespace-nowrap">
-                    <span className={r.side === 'buy' ? 'text-blue-400 font-medium' : 'text-rose-400 font-medium'}>
+                    <span className={r.side === 'buy' ? 'text-(--color-up) font-medium' : 'text-(--color-down) font-medium'}>
                       {r.side === 'buy' ? '매수' : '매도'}
                     </span>
                     <span className="text-(--text-muted) ml-1">{r.orderType}</span>
@@ -172,7 +175,7 @@ export function MarketPanel({ tradeRows, isLoading = false }: MarketPanelProps) 
                       <button
                         type="button"
                         onClick={() => cancelOrder(r.id)}
-                        className="flex items-center justify-center mx-auto h-5 w-5 rounded-full bg-white/6 text-(--text-muted) hover:bg-rose-500/20 hover:text-rose-400 transition-colors"
+                        className="flex items-center justify-center mx-auto h-5 w-5 rounded-full bg-white/6 text-(--text-muted) hover:bg-rose-500/20 hover:text-(--color-down) transition-colors"
                         aria-label="주문 취소"
                       >
                         <X size={10} />
@@ -187,7 +190,7 @@ export function MarketPanel({ tradeRows, isLoading = false }: MarketPanelProps) 
       )}
 
       {/* ── 지표 요약 ── */}
-      {tab === '지표 요약' && (
+      {isLoggedIn && tab === '지표 요약' && (
         <div className="px-4 py-3 h-[220px] overflow-auto">
           <div className="text-xs text-(--text-muted) mb-3">MA / BB / RSI</div>
           <div className="space-y-3">

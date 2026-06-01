@@ -1,5 +1,10 @@
 import { useState } from 'react'
 
+interface OrderFormProps {
+  isLoggedIn?: boolean
+  onLoginClick?: () => void
+}
+
 type OrderSide = 'buy' | 'sell'
 type OrderType = '지정가' | '시장가' | '예약'
 
@@ -18,7 +23,7 @@ function formatKrw(n: number) {
   return Math.round(n).toLocaleString()
 }
 
-export function OrderForm() {
+export function OrderForm({ isLoggedIn = false, onLoginClick }: OrderFormProps) {
   const [side, setSide] = useState<OrderSide>('buy')
   const [orderType, setOrderType] = useState<OrderType>('지정가')
   const [price, setPrice] = useState('120463339')
@@ -60,7 +65,7 @@ export function OrderForm() {
               onClick={() => setSide('buy')}
               className={[
                 'py-3 text-sm font-bold transition-colors',
-                isBuy ? 'bg-blue-500 text-white' : 'text-(--text-muted) hover:text-(--page-text)',
+                isBuy ? 'bg-(--color-up-bg) text-white' : 'text-(--text-muted) hover:text-(--page-text)',
               ].join(' ')}
             >
               매수
@@ -70,7 +75,7 @@ export function OrderForm() {
               onClick={() => setSide('sell')}
               className={[
                 'py-3 text-sm font-bold transition-colors',
-                !isBuy ? 'bg-rose-500 text-white' : 'text-(--text-muted) hover:text-(--page-text)',
+                !isBuy ? 'bg-(--color-down-bg) text-white' : 'text-(--text-muted) hover:text-(--page-text)',
               ].join(' ')}
             >
               매도
@@ -174,7 +179,7 @@ export function OrderForm() {
                   setAmount((maxBtc * v / 100).toFixed(4))
                 }
               }}
-              className="w-full accent-blue-500 cursor-pointer"
+              className="w-full accent-(--color-up-bg) cursor-pointer"
             />
           </div>
         </div>
@@ -201,20 +206,30 @@ export function OrderForm() {
               <div className="h-px bg-white/8 my-1" />
               <div className="flex items-center justify-between text-xs">
                 <span className="text-(--text-muted)">최종 {isBuy ? '결제' : '수령'} 금액</span>
-                <span className="tabular-nums text-blue-400 font-bold">{formatKrw(finalAmount)} <span className="text-blue-400/70">KRW</span></span>
+                <span className="tabular-nums text-(--color-up) font-bold">{formatKrw(finalAmount)} <span className="text-(--color-up)/70">KRW</span></span>
               </div>
             </div>
 
             {/* 주문 버튼 */}
-            <button
-              type="button"
-              className={[
-                'w-full mt-3 py-3 rounded-xl text-sm font-bold text-white transition-colors',
-                isBuy ? 'bg-blue-500 hover:bg-blue-400' : 'bg-rose-500 hover:bg-rose-400',
-              ].join(' ')}
-            >
-              {isBuy ? '매수' : '매도'}
-            </button>
+            {isLoggedIn ? (
+              <button
+                type="button"
+                className={[
+                  'w-full mt-3 py-3 rounded-xl text-sm font-bold text-white transition-colors',
+                  isBuy ? 'bg-(--color-up-bg) hover:bg-(--color-up-bg-hover)' : 'bg-(--color-down-bg) hover:bg-(--color-down-bg-hover)',
+                ].join(' ')}
+              >
+                {isBuy ? '매수' : '매도'}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={onLoginClick}
+                className="w-full mt-3 py-3 rounded-xl text-sm font-bold text-white bg-white/10 hover:bg-white/16 transition-colors"
+              >
+                로그인하러 가기 →
+              </button>
+            )}
           </div>
 
           {/* 내 자산 */}

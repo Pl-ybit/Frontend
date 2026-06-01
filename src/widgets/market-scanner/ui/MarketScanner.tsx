@@ -7,6 +7,7 @@ interface MarketScannerProps {
   rows: CoinRow[]
   search: string
   onSearchChange: (value: string) => void
+  isLoggedIn?: boolean
 }
 
 type Tab = '관심' | 'KRW' | '보유'
@@ -14,12 +15,12 @@ type Tab = '관심' | 'KRW' | '보유'
 const TABS: Tab[] = ['관심', 'KRW', '보유']
 
 const CHANGE_COLOR: Record<CoinRow['variant'], string> = {
-  up: 'text-blue-400',
-  down: 'text-rose-400',
+  up: 'text-(--color-up)',
+  down: 'text-(--color-down)',
   neutral: 'text-slate-400',
 }
 
-export function MarketScanner({ rows, search, onSearchChange }: MarketScannerProps) {
+export function MarketScanner({ rows, search, onSearchChange, isLoggedIn = false }: MarketScannerProps) {
   const [tab, setTab] = useState<Tab>('KRW')
   const [favorites, setFavorites] = useState<Set<string>>(new Set())
 
@@ -77,8 +78,15 @@ export function MarketScanner({ rows, search, onSearchChange }: MarketScannerPro
         </div>
       </div>
 
+      {/* 비로그인 관심/보유 안내 */}
+      {!isLoggedIn && (tab === '관심' || tab === '보유') && (
+        <div className="flex-1 flex items-center justify-center">
+          <span className="text-sm text-(--text-muted)">로그인을 완료해주세요!</span>
+        </div>
+      )}
+
       {/* Table */}
-      <div className="flex-1 overflow-auto">
+      {(isLoggedIn || tab === 'KRW') && <div className="flex-1 overflow-auto">
         <table className="w-full text-xs border-separate border-spacing-0">
           <thead className="sticky top-0 z-10 bg-(--page-bg,#0f172a)">
             <tr>
@@ -124,7 +132,7 @@ export function MarketScanner({ rows, search, onSearchChange }: MarketScannerPro
             )}
           </tbody>
         </table>
-      </div>
+      </div>}
     </div>
   )
 }

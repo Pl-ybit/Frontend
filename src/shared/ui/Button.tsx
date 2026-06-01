@@ -17,9 +17,9 @@ const variantClass: Record<ButtonVariant, string> = {
   secondary:
     'bg-[color:var(--btn-secondary-bg)] text-[color:var(--btn-secondary-text)] border border-[color:var(--btn-secondary-border)] hover:bg-[color:var(--btn-secondary-hover-bg)]',
   success:
-    'bg-blue-500/15 text-blue-200 border border-blue-500/30 hover:bg-blue-500/20 focus-visible:ring-blue-300',
+    'bg-(--color-up)/15 text-blue-200 border border-(--color-up)/30 hover:bg-(--color-up)/25',
   destructive:
-    'bg-rose-500/15 text-rose-200 border border-rose-500/30 hover:bg-rose-500/20 focus-visible:ring-rose-300',
+    'bg-(--color-down)/15 text-rose-200 border border-(--color-down)/30 hover:bg-(--color-down)/25',
   // 헤더 아이콘 버튼에 사용할 ghost 스타일 추가
   ghost: 
     'bg-transparent border-none text-slate-400 hover:bg-[#252A30] hover:text-white',
@@ -47,7 +47,7 @@ export function Button({
       type={type}
       disabled={disabled}
       className={[
-        'inline-flex items-center justify-center gap-2 font-semibold transition-colors focus-visible:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--focus-outline)] focus-visible:outline-offset-2',
+        'inline-flex items-center justify-center gap-2 font-semibold transition-colors focus-visible:outline-none focus-visible:outline-2 focus-visible:outline-(--focus-outline) focus-visible:outline-offset-2',
         sizeClass[size],
         variantClass[variant],
         disabled ? 'opacity-50 cursor-not-allowed' : '',

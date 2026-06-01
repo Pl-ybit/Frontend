@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { ThemeProvider } from './app/providers'
+import { ThemeProvider, AuthProvider } from './app/providers'
 import { HomePage } from './pages/home'
 import { MarketPage } from './pages/market'
 import { LoginPage } from './pages/login'
@@ -7,6 +7,7 @@ import { SignupPage } from './pages/signup'
 
 function App() {
   return (
+    <AuthProvider>
     <ThemeProvider>
       <BrowserRouter>
         <Routes>
@@ -17,6 +18,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
+    </AuthProvider>
   )
 }
 

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail, User } from 'lucide-react'
 import { TopBar } from '../../../shared/ui'
 import { useTheme } from '../../../app/providers'
 import { SocialButtons } from '../../login/ui/SocialButtons'
@@ -39,6 +39,15 @@ export function SignupPage() {
               <div className="relative">
                 <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-(--text-muted)" />
                 <input type="email" placeholder="you@example.com" className={`${inputBase} pl-10 pr-3`} />
+              </div>
+            </div>
+
+            {/* name */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-(--text-muted)">이름</label>
+              <div className="relative">
+                <User className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-(--text-muted)" />
+                <input type="text" placeholder="당신의 이름을 입력하세요" className={`${inputBase} pl-10 pr-3`} />
               </div>
             </div>
 
@@ -112,7 +121,7 @@ export function SignupPage() {
               <button
                 type="button"
                 onClick={() => navigate('/login')}
-                className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
+                className="text-(--color-up) hover:text-(--color-up)/70 font-medium transition-colors"
               >
                 로그인
               </button>

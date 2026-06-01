@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { TopBar } from '../../../shared/ui/TopBar'
-import { useTheme } from '../../../app/providers'
+import { useTheme, useAuth } from '../../../app/providers'
 import { MarketScanner } from '../../../widgets/market-scanner'
 import { TradingChart } from '../../../widgets/trading-chart'
 import { OrderBook } from '../../../widgets/order-book'
@@ -16,6 +16,7 @@ import { TRADE_ROWS } from '../../../entities/trade'
 export function MarketPage() {
   const navigate = useNavigate()
   const { theme, setTheme } = useTheme()
+  const { isLoggedIn, logout } = useAuth()
   const [search, setSearch] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [leftOpen, setLeftOpen] = useState(true)
@@ -40,16 +41,17 @@ export function MarketPage() {
         onNavClick={(key: string) => {
           if (key === 'home') navigate('/')
         }}
-        isLoggedIn={false}
+        isLoggedIn={isLoggedIn}
         onSignupClick={() => navigate('/signup')}
         onLoginClick={() => navigate('/login')}
+        onLogoutClick={logout}
       />
 
       <div className="flex flex-1 min-h-0">
         {/* Left Sidebar */}
         <div className="relative shrink-0 h-full">
           <aside className={`h-full flex flex-col border-r border-(--border-weak) bg-(--sidebar-bg) overflow-hidden transition-[width] duration-300 ${leftOpen ? 'w-[280px]' : 'w-0'}`}>
-            <MarketScanner rows={COIN_ROWS} search={search} onSearchChange={setSearch} />
+            <MarketScanner rows={COIN_ROWS} search={search} onSearchChange={setSearch} isLoggedIn={isLoggedIn} />
           </aside>
           <button
             type="button"
@@ -68,10 +70,10 @@ export function MarketPage() {
             <TradingChart theme={theme} />
           </div>
           <div className="shrink-0">
-            <OrderForm />
+            <OrderForm isLoggedIn={isLoggedIn} onLoginClick={() => navigate('/login')} />
           </div>
           <div className="shrink-0">
-            <MarketPanel tradeRows={TRADE_ROWS} isLoading={isLoading} />
+            <MarketPanel tradeRows={TRADE_ROWS} isLoading={isLoading} isLoggedIn={isLoggedIn} />
           </div>
         </main>
 
